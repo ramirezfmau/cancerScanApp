@@ -4,7 +4,31 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="home">
-  <h2>Welcome to Ionic!</h2>
-  <img [src] = "photo">
+<ion-content padding class="home card-background-page">
+
+  <img [src] = "image" *ngIf="image">
+
+    <ion-card>
+      <img src="build/images/scan-image.jpg"/>
+      <div class="card-title">Cancer Scan</div>
+    </ion-card>
+
+
+  <div class ="btn-container">
+  <button outline block>
+    <ion-icon name="home"></ion-icon>
+    Take Photo
+  </button>
+  <button outline block>
+    <ion-icon name="home"></ion-icon>
+    Choose Image
+  </button>
+  <button outline block>
+    <ion-icon name="home"></ion-icon>
+    Analyze
+  </button>
+
+
+  </div>
+
 </ion-content>
