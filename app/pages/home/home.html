@@ -6,7 +6,11 @@
 
 <ion-content padding class="home card-background-page">
 
-  <img [src] = "image" *ngIf="image"/>
+
+
+  <ion-card *ngIf="image">
+    <img [src]="image" />
+  </ion-card>
 
   <ion-card *ngIf="!image">
     <img src="build/images/scan.jpg"/>
@@ -15,12 +19,12 @@
 
 
   <div class ="btn-container">
-    <button outline block (click)="openCam()">
+    <button outline block (click)="takePicture()">
       Take Photo
       <ion-icon name="ios-camera"></ion-icon>
     </button>
 
-    <button outline block>
+    <button outline block (click)="selectPicture()">
       Choose Image
       <ion-icon name="ios-folder-open"></ion-icon>
     </button>

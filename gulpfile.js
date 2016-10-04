@@ -38,10 +38,11 @@ var isRelease = argv.indexOf('--release') > -1;
 
 gulp.task('watch', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'html', 'fonts', 'scripts', 'images'],
     function(){
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
+      gulpWatch('app/images/*', function(){ gulp.start('images'); });
       buildBrowserify({ watch: true }).on('end', done);
     }
   );
@@ -71,4 +72,11 @@ gulp.task('scripts', copyScripts);
 gulp.task('clean', function(){
   return del('www/build');
 });
+/**
+ * Images
+ */
+ gulp.task("images", function () {
+   return gulp.src("app/images/*")
+     .pipe(gulp.dest("www/build/images/"));
+ });
 gulp.task('lint', tslint);
