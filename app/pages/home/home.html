@@ -5,9 +5,6 @@
 </ion-header>
 
 <ion-content padding class="home card-background-page">
-
-
-
   <ion-card *ngIf="image">
     <img [src]="image" />
   </ion-card>
@@ -29,7 +26,7 @@
       <ion-icon name="ios-folder-open"></ion-icon>
     </button>
 
-    <button outline block [disabled]="true">
+    <button outline block [disabled]="!image">
       Analyze
       <ion-icon name="md-qr-scanner"></ion-icon>
     </button>
