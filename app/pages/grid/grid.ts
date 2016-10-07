@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'build/pages/contact/contact.html'
+  templateUrl: 'build/pages/grid/grid.html'
 })
-export class ContactPage {
+export class GridPage {
   constructor(public navCtrl: NavController) {
   }
 }

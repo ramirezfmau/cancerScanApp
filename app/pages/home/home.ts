@@ -3,45 +3,52 @@ import { Platform, NavController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 import { ImagePicker } from 'ionic-native';
 import { Cordova } from 'ionic-native';
-
+import { LoadingController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/home/home.html'
 })
+
 export class HomePage {
 
   public image: any;
-  public permissions: any;
+  public risk: number;
 
-  constructor(public navCtrl: NavController, private platform: Platform) {
+  constructor(public navCtrl: NavController, private platform: Platform, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 
     this.platform = platform;
      platform.ready().then(() => {
-        this.permissions = cordova.plugins;
-        console.log(this.permissions);
+     //   this.permissions = cordova.plugins;
+      //  console.log(this.permissions);
 
      });
   }
-
+/*
   checkPermissionCallback(status):  void {
     if(!status.hasPermission) {
       var errorCallback = function() {
         console.warn('Camera permission is not turned on');
       }
 
-      this.permissions.requestPermission(
-        this.permissions.CAMERA,
+      permissions.requestPermission(
+        permissions.CAMERA,
         function(status) {
           if(!status.hasPermission) errorCallback();
         },
         errorCallback);
     }
   }
+*/
 
-
+  /**
+   * Returns the current step according to the tag sent in the locals object
+   * @returns The current step
+   */
   takePicture() : void {
-    this.permissions.hasPermission(this.permissions.CAMERA, this.checkPermissionCallback, null);
-    var options = {
+   // permissions.hasPermission(permissions.CAMERA, this.checkPermissionCallback, null);
+    this.risk = -1;
+    let options = {
       quality: 100,
       destinationType: Camera.DestinationType.DATA_URL,
       sourceType: Camera.PictureSourceType.CAMERA,
@@ -57,42 +64,39 @@ export class HomePage {
     }, (err) => {
     // Handle error
     });
-
-
-
   }
 
   selectPicture() : void {
-    var options = {
+    this.risk = -1;
+    let options = {
       quality: 100,
       maximumImagesCount: 1
     };
+
     ImagePicker.getPictures(options).then((results) => {
       this.image = results[0];
     }, (err) => { });
-/*
-    Camera.getPicture(options).then((imageURI) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
-      /* if (imageURI.substring(0,21)=="content://com.android") {
-          var photo_split = imageURI.split("%3A");
-          imageURI = "content://media/external/images/media/" + photo_split[1];
-          alert("2");
-          this.image = imageURI;
-        }*/
-
-
-         /* window.resolveLocalFileSystemURI(imageURI, (fileEntry) => {
-             alert();
-            this.image = fileEntry.nativeURL;
-
-          });*/
-
-      //alert(this.image);
-   /* }, (err) => {
-
-     // Handle error
-    });*/
   }
 
+  analyze() : void {
+    this.risk = Math.random();
+    let loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    loader.present();
+    window.scrollTo(0, 0);
+    setTimeout(function(){
+         loader.dismiss();
+    }, 1000);
+
+  }
+
+  openModal() : void {
+    let alert = this.alertCtrl.create({
+      title: 'New Friend!',
+      subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 }

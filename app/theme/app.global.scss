@@ -1,0 +1,23 @@
+.btn-risk {
+  height: 1.8em;
+  margin-bottom: 10px;
+}
+
+.btn-orange {
+  background-color: #ffc900;
+}
+
+.btn-green {
+  background-color: #28a54c;
+}
+
+.button-inner {
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: flex-start;
+  justify-content: flex-start;
+    ion-icon {
+      position:absolute;
+      right: 24px;
+      font-size: 2.2em;
+    }
+}

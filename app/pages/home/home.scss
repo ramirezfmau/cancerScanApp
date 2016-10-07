@@ -2,6 +2,21 @@
   button {
     height: 3.8em;
     margin-bottom: 25px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .btn-risk {
+    height: 1.8em;
+    margin-bottom: 10px;
+  }
+
+  .btn-orange {
+    background-color: #ffc900;
+  }
+
+  .btn-green {
+    background-color: #28a54c;
   }
 }
 

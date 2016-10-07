@@ -7,6 +7,16 @@
 <ion-content padding class="home card-background-page">
   <ion-card *ngIf="image">
     <img [src]="image" />
+    <ion-card-content *ngIf="risk >= 0">
+
+      <p><b>Results:</b> {{ risk | number }}%</p>
+
+      <button class="btn-risk btn-green" *ngIf="risk <= 0.4" ion-button round color="secondary" (click)="openModal()">Low Risk</button>
+      <button class="btn-risk btn-orange" *ngIf="risk <= 0.5 && risk > 0.4" ion-button round (click)="openModal()">Medium risk</button>
+      <button class="btn-risk" ion-button round *ngIf="risk > 0.5" color="danger" (click)="openModal()">High risk</button>
+      <p *ngIf="risk > 0.4">Please consult with your doctor.</p>
+
+    </ion-card-content>
   </ion-card>
 
   <ion-card *ngIf="!image">
@@ -26,7 +36,7 @@
       <ion-icon name="ios-folder-open"></ion-icon>
     </button>
 
-    <button outline block [disabled]="!image">
+    <button outline block  (click)="analyze()" [disabled]="!image">
       Analyze
       <ion-icon name="md-qr-scanner"></ion-icon>
     </button>
