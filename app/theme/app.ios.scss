@@ -5,7 +5,6 @@
 // --------------------------------------------------
 // Shared Sass variables go in the app.variables.scss file
 @import "app.variables";
-@import "app.global";
 
 // App iOS Variables
 // --------------------------------------------------
@@ -24,6 +23,7 @@
 // All Sass files that make up this app goes into the app.core.scss file.
 // For simpler CSS overrides, custom app CSS must come after Ionic's CSS.
 @import "app.core";
+@import "app.global";
 
 
 // App iOS Only Sass
