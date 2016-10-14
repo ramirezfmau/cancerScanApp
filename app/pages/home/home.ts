@@ -21,11 +21,14 @@ export class HomePage {
     private alertCtrl: AlertController, private watsonService: WatsonService) {
 
     this.platform = platform;
+     let formData = new FormData();
+    formData.append("images_file", "asd");
+    console.log(formData);
   }
 
   /**
-   * Returns the current step according to the tag sent in the locals object
-   * @returns The current step
+   *
+   * @returns
    */
   takePicture() : void {
     this.risk = -1;
@@ -66,10 +69,10 @@ export class HomePage {
     loader.present();
 
     this.watsonService.postPicture(this.image).then((res: any) => {
-      alert(res);
+   //   alert(res);
       this.risk = 0.5;
       loader.dismiss();
-    }).catch((error) => {alert(error);});
+    }).catch((error) => {alert(error[0]);});
   }
 
   openModal() : void {

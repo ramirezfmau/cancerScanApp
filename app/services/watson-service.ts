@@ -13,7 +13,8 @@ export class WatsonService {
   }
   private apiUrl = 'https://kg-watson.herokuapp.com/api/custom_classify/kevoclasificador_881695007';
 
-  postPicture(img): any {/*
+  postPicture(img): any {
+
     let ft = new Transfer();
     let filename = 'file.png';
 
@@ -24,15 +25,17 @@ export class WatsonService {
       mimeType: "image/jpg"
     };
 
-    return ft.upload(img, this.apiUrl, options, false);*/
+    return ft.upload(img, this.apiUrl, options, false);
+    /*
     let formData = new FormData();
+    alert(img);
     formData.append("images_file", img);
-
-    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+    alert(formData);
+    let headers = new Headers({'Accept': 'multipart/form-data'});
     let options = new RequestOptions({ headers: headers });
 
     return this.http
     .post(this.apiUrl, formData, options)
-    .toPromise();
+    .toPromise();*/
   }
 }
