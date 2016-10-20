@@ -5,9 +5,11 @@ import { ImagePicker } from 'ionic-native';
 import { Cordova } from 'ionic-native';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import {WatsonService} from '../../services/watson-service';
 
 @Component({
-  templateUrl: 'build/pages/home/home.html'
+  templateUrl: 'build/pages/home/home.html',
+  providers: [WatsonService]
 })
 
 export class HomePage {
@@ -15,38 +17,20 @@ export class HomePage {
   public image: any;
   public risk: number;
 
-  constructor(public navCtrl: NavController, private platform: Platform, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private platform: Platform, private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController, private watsonService: WatsonService) {
 
     this.platform = platform;
-     platform.ready().then(() => {
-     //   this.permissions = cordova.plugins;
-      //  console.log(this.permissions);
-
-     });
+     let formData = new FormData();
+    formData.append("images_file", "asd");
+    console.log(formData);
   }
-/*
-  checkPermissionCallback(status):  void {
-    if(!status.hasPermission) {
-      var errorCallback = function() {
-        console.warn('Camera permission is not turned on');
-      }
-
-      permissions.requestPermission(
-        permissions.CAMERA,
-        function(status) {
-          if(!status.hasPermission) errorCallback();
-        },
-        errorCallback);
-    }
-  }
-*/
 
   /**
-   * Returns the current step according to the tag sent in the locals object
-   * @returns The current step
+   *
+   * @returns
    */
   takePicture() : void {
-   // permissions.hasPermission(permissions.CAMERA, this.checkPermissionCallback, null);
     this.risk = -1;
     let options = {
       quality: 100,
@@ -63,6 +47,7 @@ export class HomePage {
 
     }, (err) => {
     // Handle error
+      alert(err);
     });
   }
 
@@ -79,22 +64,22 @@ export class HomePage {
   }
 
   analyze() : void {
-    this.risk = Math.random();
     let loader = this.loadingCtrl.create({
       content: "Please wait..."
     });
     loader.present();
-    window.scrollTo(0, 0);
-    setTimeout(function(){
-         loader.dismiss();
-    }, 1000);
 
+    this.watsonService.postPicture(this.image)
+      .then((data: any) => {
+        this.risk =  parseInt(data);
+        loader.dismiss();
+      });
   }
 
   openModal() : void {
     let alert = this.alertCtrl.create({
-      title: 'New Friend!',
-      subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
+      title: 'Test',
+      subTitle: 'Test..!',
       buttons: ['OK']
     });
     alert.present();
