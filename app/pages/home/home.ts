@@ -47,6 +47,7 @@ export class HomePage {
 
     }, (err) => {
     // Handle error
+      alert(err);
     });
   }
 
@@ -68,11 +69,11 @@ export class HomePage {
     });
     loader.present();
 
-    this.watsonService.postPicture(this.image).then((res: any) => {
-   //   alert(res);
-      this.risk = 0.5;
-      loader.dismiss();
-    }).catch((error) => {alert(error[0]);});
+    this.watsonService.postPicture(this.image)
+      .then((data: any) => {
+        this.risk =  parseInt(data);
+        loader.dismiss();
+      });
   }
 
   openModal() : void {

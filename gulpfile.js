@@ -69,6 +69,7 @@ gulp.task('sass', buildSass);
 gulp.task('html', copyHTML);
 gulp.task('fonts', copyFonts);
 gulp.task('scripts', copyScripts);
+gulp.task('images');
 gulp.task('clean', function(){
   return del('www/build');
 });

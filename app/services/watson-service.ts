@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { Platform} from 'ionic-angular';
 import { Transfer } from 'ionic-native';
-import 'rxjs/add/operator/toPromise';
+
 
 @Injectable()
 export class WatsonService {
@@ -13,11 +13,9 @@ export class WatsonService {
   }
   private apiUrl = 'https://kg-watson.herokuapp.com/api/custom_classify/kevoclasificador_881695007';
 
-  postPicture(img): any {
-
+  postPicture(img) : any {
     let ft = new Transfer();
     let filename = 'file.png';
-
     let options = {
       fileKey: "images_file",
       fileName: filename,
@@ -25,17 +23,12 @@ export class WatsonService {
       mimeType: "image/jpg"
     };
 
-    return ft.upload(img, this.apiUrl, options, false);
-    /*
-    let formData = new FormData();
-    alert(img);
-    formData.append("images_file", img);
-    alert(formData);
-    let headers = new Headers({'Accept': 'multipart/form-data'});
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http
-    .post(this.apiUrl, formData, options)
-    .toPromise();*/
+    return new Promise((resolve, reject) => {
+      ft.upload(img, this.apiUrl, options, false).then((data: any) => {
+        var response = JSON.parse(data.response);
+        alert(response.custom_classes);
+        resolve(response[18]);
+      });
+    });
   }
 }
