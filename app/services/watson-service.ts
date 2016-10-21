@@ -29,7 +29,8 @@ export class WatsonService {
           result = response.images[0].classifiers[0].classes[0].score;
         }
         resolve(result);
-      });
+      })
+      .catch((err) => {alert(JSON.stringify(err));});
     });
   }
 }

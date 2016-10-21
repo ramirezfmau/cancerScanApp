@@ -56,7 +56,7 @@ export class HomePage {
 
     ImagePicker.getPictures(options).then((results) => {
       this.image = results[0];
-    }, (err) => { });
+    }, (err) => { alert(JSON.stringify(err)); });
   }
 
   analyze() : void {
