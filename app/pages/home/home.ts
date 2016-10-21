@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-import { Platform, NavController } from 'ionic-angular';
-import { Camera } from 'ionic-native';
-import { ImagePicker } from 'ionic-native';
-import { Cordova } from 'ionic-native';
-import { LoadingController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { Platform, NavController, LoadingController, AlertController  } from 'ionic-angular';
+import { Cordova, Camera, ImagePicker } from 'ionic-native';
 import {WatsonService} from '../../services/watson-service';
 
 @Component({
@@ -71,7 +67,7 @@ export class HomePage {
 
     this.watsonService.postPicture(this.image)
       .then((data: any) => {
-        this.risk =  parseInt(data);
+        this.risk =  data;
         loader.dismiss();
       });
   }
