@@ -17,33 +17,24 @@ export class HomePage {
     private alertCtrl: AlertController, private watsonService: WatsonService) {
 
     this.platform = platform;
-     let formData = new FormData();
-    formData.append("images_file", "asd");
-    console.log(formData);
   }
 
-  /**
-   *
-   * @returns
-   */
   takePicture() : void {
     this.risk = -1;
     let options = {
-      quality: 100,
+      quality: 50,
       destinationType: Camera.DestinationType.DATA_URL,
       sourceType: Camera.PictureSourceType.CAMERA,
       encodingType: Camera.EncodingType.JPEG
      };
 
     Camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
+
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.image = base64Image;
 
     }, (err) => {
-    // Handle error
-      alert(err);
+      // Handle error
     });
   }
 
@@ -53,10 +44,11 @@ export class HomePage {
       quality: 100,
       maximumImagesCount: 1
     };
-
     ImagePicker.getPictures(options).then((results) => {
       this.image = results[0];
-    }, (err) => { alert(JSON.stringify(err)); });
+    }, (err) => {
+      // Handle error
+    });
   }
 
   analyze() : void {
@@ -64,11 +56,12 @@ export class HomePage {
       content: "Please wait..."
     });
     loader.present();
-
     this.watsonService.postPicture(this.image)
       .then((data: any) => {
         this.risk =  data;
         loader.dismiss();
+      }, (err) => {
+      // Handle error
       });
   }
 

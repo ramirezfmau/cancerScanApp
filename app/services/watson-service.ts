@@ -6,9 +6,9 @@ import { Transfer } from 'ionic-native';
 @Injectable()
 export class WatsonService {
 
-  constructor(
-    private platform: Platform) {
+  constructor(private platform: Platform) {
   }
+
   private apiUrl = 'https://kg-watson.herokuapp.com/api/custom_classify/kevoclasificador_881695007';
 
   postPicture(img) : any {
@@ -20,7 +20,6 @@ export class WatsonService {
       chunkedMode: false,
       mimeType: "image/jpg"
     };
-
     return new Promise((resolve, reject) => {
       ft.upload(img, this.apiUrl, options, false).then((data: any) => {
         let response = JSON.parse(data.response);
@@ -30,7 +29,9 @@ export class WatsonService {
         }
         resolve(result);
       })
-      .catch((err) => {alert(JSON.stringify(err));});
+      .catch((err) => {
+        // Handle error
+      });
     });
   }
 }
